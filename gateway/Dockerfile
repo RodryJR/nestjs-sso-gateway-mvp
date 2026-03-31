@@ -1,8 +1,11 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY package*.json ./
+# [MODIFICADO POR IA] Railway usa la raiz del repo como build context (no gateway/),
+# por lo que los COPY deben apuntar a gateway/ explicitamente para encontrar
+# package.json y el codigo fuente correctamente en CI.
+COPY gateway/package*.json ./
 RUN npm ci
-COPY . .
+COPY gateway/ .
 RUN npm run build
 
 FROM node:20-alpine

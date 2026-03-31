@@ -1,8 +1,11 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY package*.json ./
+# [MODIFICADO POR IA] Railway usa la raiz del repo como build context (no banking-service/),
+# por lo que los COPY deben apuntar a banking-service/ explicitamente para encontrar
+# package.json y el codigo fuente correctamente en CI.
+COPY banking-service/package*.json ./
 RUN npm ci
-COPY . .
+COPY banking-service/ .
 RUN npm run build
 
 FROM node:20-alpine

@@ -1,12 +1,13 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY package*.json ./
+# [MODIFICADO POR IA] Railway usa la raiz del repo como build context (no sso-service/),
+# por lo que los COPY deben apuntar a sso-service/ explicitamente para encontrar
+# package.json, prisma/schema.prisma y el codigo fuente correctamente en CI.
+COPY sso-service/package*.json ./
 RUN npm ci
-COPY . .
+COPY sso-service/ .
 # [MODIFICADO POR IA] Prisma v7 requiere generar el cliente antes de compilar TypeScript;
 # sin este paso @prisma/client no tiene los tipos del schema y el build falla.
-# [MODIFICADO POR IA] Se agrega --schema explícito porque Railway envía el repo completo
-# como build context y Prisma no puede resolver prisma.config.ts correctamente en CI.
 RUN npx prisma generate --schema ./prisma/schema.prisma
 RUN npm run build
 
@@ -27,5 +28,4 @@ EXPOSE 3001
 # [MODIFICADO POR IA] El entrypoint es dist/src/main (no dist/main) porque prisma.config.ts
 # esta en la raiz del proyecto; TypeScript preserva la estructura de directorios en el output,
 # por lo que src/main.ts compila a dist/src/main.js en lugar de dist/main.js.
-# [MODIFICADO POR IA] Se agrega --schema explícito al migrate deploy por la misma razón.
 CMD ["sh", "-c", "npx prisma migrate deploy --schema ./prisma/schema.prisma && node dist/src/main"]
