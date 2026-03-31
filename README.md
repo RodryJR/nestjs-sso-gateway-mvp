@@ -17,6 +17,29 @@ Gateway (3000)          ← Rate limiting · Proxy
 
 ---
 
+## Diagramas de módulos y flujos
+
+### Módulos
+
+**Gateway**
+![Gateway Modules](docs/diagrams/modules-gateway.png)
+
+**SSO Service**
+![SSO Modules](docs/diagrams/modules-sso.png)
+
+**Banking Service**
+![Banking Modules](docs/diagrams/modules-banking.png)
+
+### Flujos
+
+**Flujo de autenticación**
+![Auth Flow](docs/diagrams/flow-auth.png)
+
+**Flujo de operación con webhook**
+![Operations Flow](docs/diagrams/flow-operations.png)
+
+---
+
 ## Despliegue local con Docker
 
 ### Requisitos
