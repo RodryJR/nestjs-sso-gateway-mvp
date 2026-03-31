@@ -34,8 +34,10 @@ export class ProxyController {
   }
 
   // Rutas protegidas Banking
-  @All('accounts/*path')
-  @All('accounts')
+  // [MODIFICADO POR IA] Se reemplaza el doble @All apilado por un array en un solo decorador;
+  // NestJS ignora el segundo @All apilado y solo registraba "accounts/*path", dejando
+  // "GET /accounts" (la ruta raiz) sin mapear y devolviendo 404.
+  @All(['accounts', 'accounts/*path'])
   @ApiOperation({ summary: 'Proxy to Banking Service - Accounts' })
   async proxyAccounts(@Req() req: Request) {
     const targetUrl = `${this.BANKING_URL}${req.url}`;
@@ -51,8 +53,8 @@ export class ProxyController {
     }
   }
 
-  @All('operations/*path')
-  @All('operations')
+  // [MODIFICADO POR IA] Mismo fix que accounts.
+  @All(['operations', 'operations/*path'])
   @ApiOperation({ summary: 'Proxy to Banking Service - Operations' })
   async proxyOperations(@Req() req: Request) {
     const targetUrl = `${this.BANKING_URL}${req.url}`;
@@ -68,8 +70,8 @@ export class ProxyController {
     }
   }
 
-  @All('webhooks/*path')
-  @All('webhooks')
+  // [MODIFICADO POR IA] Mismo fix que accounts.
+  @All(['webhooks', 'webhooks/*path'])
   @ApiOperation({ summary: 'Proxy to Banking Service - Webhooks' })
   async proxyWebhooks(@Req() req: Request) {
     const targetUrl = `${this.BANKING_URL}${req.url}`;
