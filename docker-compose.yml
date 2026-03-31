@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: tecopos
+      POSTGRES_PASSWORD: tecopos123
+      POSTGRES_DB: sso_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tecopos"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  sso-service:
+    build: ./sso-service
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://tecopos:tecopos123@postgres:5432/sso_db
+      JWT_SECRET: tecopos_jwt_secret_2026
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  banking-service:
+    build: ./banking-service
+    ports:
+      - "3002:3002"
+    environment:
+      MOCKAPI_BASE_URL: https://TU_ID.mockapi.io/api/v1
+      JWT_SECRET: tecopos_jwt_secret_2026
+      SSO_SERVICE_URL: http://sso-service:3001
+    depends_on:
+      - sso-service
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "3000:3000"
+    environment:
+      SSO_SERVICE_URL: http://sso-service:3001
+      BANKING_SERVICE_URL: http://banking-service:3002
+    depends_on:
+      - sso-service
+      - banking-service
+
+volumes:
+  postgres_data:
