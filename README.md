@@ -27,7 +27,7 @@ Gateway (3000)          ← Rate limiting · Proxy
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/<tu-usuario>/nestjs-sso-gateway-mvp.git
+git clone -b Develop https://github.com/RodryJR/nestjs-sso-gateway-mvp.git
 cd nestjs-sso-gateway-mvp
 
 # 2. Levantar todos los servicios
