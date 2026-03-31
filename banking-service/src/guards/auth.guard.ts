@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-
+// codigo asistido por ia
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private httpService: HttpService) {}

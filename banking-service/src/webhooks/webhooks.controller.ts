@@ -3,7 +3,7 @@ import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { WebhooksService } from './webhooks.service';
 import { RegisterWebhookDto } from './dto/register-webhook.dto';
 import { AuthGuard } from '../guards/auth.guard';
-
+//codigo asistido por ia
 @ApiTags('Webhooks')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)

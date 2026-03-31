@@ -2,7 +2,7 @@ import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { AccountsService } from './accounts.service';
 import { AuthGuard } from '../guards/auth.guard';
-
+// codigo asistido por ia
 @ApiTags('Accounts')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)

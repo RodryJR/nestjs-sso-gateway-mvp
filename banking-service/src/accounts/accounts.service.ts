@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-
+// codigo asistido por ia
 @Injectable()
 export class AccountsService {
     private baseUrl = process.env.MOCKAPI_BASE_URL;

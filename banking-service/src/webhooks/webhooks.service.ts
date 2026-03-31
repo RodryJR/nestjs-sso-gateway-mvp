@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { RegisterWebhookDto } from './dto/register-webhook.dto';
-
+//codigo asistido por ia
 export interface WebhookSubscription {
   id: string;
   url: string;

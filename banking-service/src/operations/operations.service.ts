@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import { WebhooksService } from '../webhooks/webhooks.service';
-
+//codigo asistido por ia
 @Injectable()
 export class OperationsService {
   private baseUrl = process.env.MOCKAPI_BASE_URL;
