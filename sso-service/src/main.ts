@@ -1,3 +1,5 @@
+// Modificado por IA: importar dotenv para cargar .env antes de inicializar la app (requerido por Prisma v7)
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';

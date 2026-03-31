@@ -7,9 +7,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// Modificado por IA: en Prisma v7 la url se configura en prisma.config.ts, no en el schema
 datasource db {
   provider = "postgresql"
-  //url      = env("DATABASE_URL")
 }
 
 model User {
